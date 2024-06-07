@@ -18,6 +18,10 @@ class FileStorage:
             return newClass
         return FileStorage.__objects
 
+    def close(self):
+        """ Call the reload method"""
+        self.reload()
+
     def new(self, obj):
         """Adds new object to storage dictionary"""
         self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
