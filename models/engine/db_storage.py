@@ -77,4 +77,14 @@ class DBStorage:
 
     def get(self, cls, id):
         """ fun """
-        
+        if cls in classes.values():
+            for obj in self.all(cls).values():
+                if obj.id == id:
+                    return obj
+        return None
+
+    def count(self, cls=None):
+        """ fun """
+        if cls in classes.values():
+            return len(self.all(cls))
+        return len(self.all())
