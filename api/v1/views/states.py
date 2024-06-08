@@ -51,7 +51,7 @@ def post_states():
     state = State(**new_state)
     storage.new(state)
     storage.save
-    return make_response(state.to_dict(), 201)
+    return make_response(state.to_dict(), 201), 400
 
 
 @app_views.route("/states/<state_id>", methods=["PUT"], strict_slashes=False)
