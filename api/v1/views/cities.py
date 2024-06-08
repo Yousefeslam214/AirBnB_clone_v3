@@ -10,7 +10,8 @@ from models.state import State
 from models.city import City
 
 
-@app_views.route("/states/<state_id>/cities", methods=["GET"], strict_slashes=False)
+@app_views.route("/states/<state_id>/cities", methods=["GET"],
+                 strict_slashes=False)
 def get_city(state_id):
     """Retrieves the list of all City """
     state = storage.get("State", state_id)
@@ -45,7 +46,8 @@ def delete_city_id(city_id):
     return make_response(jsonify({}), 200)
 
 
-@app_views.route("/states/<state_id>/cities", methods=["POST"], strict_slashes=False)
+@app_views.route("/states/<state_id>/cities", methods=["POST"],
+                 strict_slashes=False)
 def post_city(state_id):
     """Creates a City object"""
     state = storage.get("State", state_id)
@@ -78,8 +80,16 @@ def put_city(city_id):
     storage.save()
     return make_response(jsonify(city.to_dict()), 200)
 
-if __name__ == '__main__':
-    pass
-# curl -X POST http://0.0.0.0:5000/api/v1/states/421a55f4-7d82-47d9-b54c-a76916479545
-# curl -X GET http://0.0.0.0:5000/api/v1/cities/551a55f4-7d82-47d9-b54c-a76916479547
-# curl -X POST http://0.0.0.0:5000/api/v1/states/421a55f4-7d82-47d9-b54c-a76916479545/cities -H "Content-Type: application/json" -d '{"name": "Alexandria"}' -vvv
+
+# curl -X POST
+# http://0.0.0.0:5000/api/v1/states/421a55f4-7d82-47d9-b54c-a76916479545
+
+# curl -X GET
+# http://0.0.0.0:5000/api/v1/cities/551a55f4-7d82-47d9-b54c-a76916479547
+
+# curl -X POST
+# http://0.0.0.0:5000/api/v1/states/421a55f4-7d82-47d9-b54c-a76916479545/cities
+# -H "Content-Type: application/json" -d '{"name": "Alexandria"}' -vvv
+
+# curl -X GET
+# http://0.0.0.0:5000/api/v1/cities/551a55f4-7d82-47d9-b54c-a76916479547
