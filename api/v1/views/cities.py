@@ -46,16 +46,21 @@ def delete_city_id(city_id):
 
 
 @app_views.route("/states/<state_id>/cities", methods=["POST"], strict_slashes=False)
-def post_city():
-    """Creates a City"""
+def post_city(state_id):
+    """Creates a City object"""
+    state = storage.get("State", state_id)
+    if not state:
+        abort(404)
     new_city = request.get_json()
     if not new_city:
-        abort(400, 'Not a JSON')
-    if 'name' not in new_city:
-        abort(400, 'Missing name')
+        abort(400, "Not a JSON")
+    if "name" not in new_city:
+        abort(400, "Missing name")
     city = City(**new_city)
-    storage.save
-    return make_response(city.to_dict(), 201)
+    setattr(city, "state_id", state_id)
+    storage.new(city)
+    storage.save()
+    return make_response(jsonify(city.to_dict()), 201)
 
 
 @app_views.route("/cities/<city_id>", methods=["PUT"], strict_slashes=False)
@@ -75,4 +80,6 @@ def put_city(city_id):
 
 if __name__ == '__main__':
     pass
-# curl -X GET http://0.0.0.0:5000/api/v1/states/421a55f4-7d82-47d9-b54c-a76916479545/cities
+# curl -X POST http://0.0.0.0:5000/api/v1/states/421a55f4-7d82-47d9-b54c-a76916479545
+# curl -X GET http://0.0.0.0:5000/api/v1/cities/551a55f4-7d82-47d9-b54c-a76916479547
+# curl -X POST http://0.0.0.0:5000/api/v1/states/421a55f4-7d82-47d9-b54c-a76916479545/cities -H "Content-Type: application/json" -d '{"name": "Alexandria"}' -vvv
