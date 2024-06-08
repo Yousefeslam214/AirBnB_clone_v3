@@ -44,9 +44,9 @@ def delete_states_id(state_id):
 def post_states():
     """This function creates a new state"""
     new_state = request.get_json()
-    if not request.json:
+    if not new_state:
         abort(400, 'Not a JSON')
-    if 'name' not in request.json:
+    if 'name' not in new_state:
         abort(400, 'Missing name')
     state = State(**new_state)
     storage.new(state)
