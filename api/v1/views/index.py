@@ -13,6 +13,7 @@ def status():
     text = {"status": "OK"}
     return jsonify(text)
 
+
 @app_views.route("/stats", strict_slashes=False)
 def stats():
     """endpoint that retrieves the number of each objects by type"""
