@@ -62,8 +62,6 @@ def put_states(state_id):
     new_state = request.get_json()
     if not new_state:
         abort(400, 'Not a JSON')
-    if not request.json:
-        abort(400, 'Not a JSON')
     for key, value in new_state.items():
         if key not in ["id", "created_at", "updated_at"]:
             setattr(state, key, value)
