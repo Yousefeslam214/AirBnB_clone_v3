@@ -59,7 +59,7 @@ def post_city():
 
 
 @app_views.route("/cities/<city_id>", methods=["PUT"], strict_slashes=False)
-def put_states(city_id):
+def put_city(city_id):
     """Updates a City object"""
     city = storage.get("City", city_id)
     if not city:
@@ -70,7 +70,9 @@ def put_states(city_id):
     for key, value in new_city.items():
         if key not in ["id", "created_at", "updated_at"]:
             setattr(city, key, value)
-        storage.save()
-    return jsonify(city.to_dict()), 200
+    storage.save()
+    return make_response(jsonify(city.to_dict()), 200)
 
+if __name__ == '__main__':
+    pass
 # curl -X GET http://0.0.0.0:5000/api/v1/states/421a55f4-7d82-47d9-b54c-a76916479545/cities
