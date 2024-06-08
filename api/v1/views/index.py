@@ -12,3 +12,17 @@ def status():
     """Return the status of the application"""
     text = {"status": "OK"}
     return jsonify(text)
+
+@app_views.route("/stats", strict_slashes=False)
+def stats():
+    """endpoint that retrieves the number of each objects by type"""
+        classes = {
+        "amenities": "Amenity",
+        "cities": "City",
+        "places": "Place",
+        "reviews": "Review",
+        "states": "State",
+        "users": "User",
+    }
+    print(classes.items())
+    return classes.items()
