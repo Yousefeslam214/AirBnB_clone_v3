@@ -16,7 +16,7 @@ def status():
 @app_views.route("/stats", strict_slashes=False)
 def stats():
     """endpoint that retrieves the number of each objects by type"""
-        classes = {
+    classes = {
         "amenities": "Amenity",
         "cities": "City",
         "places": "Place",
@@ -24,5 +24,6 @@ def stats():
         "states": "State",
         "users": "User",
     }
-    print(classes.items())
-    return classes.items()
+    for key, value in classes.items():
+        print(key)
+    return None
